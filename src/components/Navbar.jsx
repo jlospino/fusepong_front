@@ -6,19 +6,19 @@ import Logo from './../logo.png'
 
 const Navbar = (props) => {
 
-    const disptach = useDispatch()
+    const dispatch = useDispatch()
     const activo = useSelector(store => store.usuario.activo)
     const user = useSelector(store => store.usuario.user)
 
     
     const cerrarSesion = (token) => {
         console.log(token)
-        disptach(cerrarSesionAccion(token))
+        dispatch(cerrarSesionAccion(token))
         props.history.push('/login')
     }
 
     return (
-        <div className="navbar navbar-dark bg-dark mb-4">
+        <div className="navbar navbar-dark bg-dark mb-4 shadow">
             <div className="container">
                 <Link className="navbar-brand" to="/">
                 <img src={Logo} alt="" className="logo" />

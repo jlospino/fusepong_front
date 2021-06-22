@@ -6,6 +6,8 @@ const dataInicial = {
     results: [],
 }
 
+const baseUrl = 'http://127.0.0.1:8000';
+
 // types
 const LOADING = 'LOADING'
 const COMPANY_ERROR = 'COMPANY_ERROR'
@@ -17,7 +19,7 @@ export default function companyReducer(state = dataInicial, action) {
         case COMPANY_EXITO:
             return {...state, error: null, results: action.payload}
         case COMPANY_ERROR:
-            return {...state, error: action.payload.error}
+            return {...state, error: action.payload}
         default:
             return {...state}
     }
@@ -33,7 +35,7 @@ export const obtenerEmpresas = () => async (dispatch, getState) => {
         return
     }
     try {
-       const res = await axios.get("http://127.0.0.1:8000/api/companys");
+       const res = await axios.get(`${baseUrl}/api/companys`);
         dispatch({
             type: COMPANY_EXITO,
             payload: res.data

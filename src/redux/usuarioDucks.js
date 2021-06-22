@@ -8,7 +8,10 @@ const dataInicial = {
     error: null
 }
 
+const baseUrl = 'http://127.0.0.1:8000';
+
 // types
+
 const LOADING = 'LOADING'
 const USUARIO_ERROR = 'USUARIO_ERROR'
 const USUARIO_EXITO = 'USUARIO_EXITO'
@@ -42,9 +45,9 @@ export const ingresoUsuarioAccion = (data) => async (dispatch) => {
         type: LOADING
     })
     try {
-        const token = await axios.post("http://127.0.0.1:8000/oauth/token",data);
+        const token = await axios.post(`${baseUrl}/oauth/token`,data);
         if(token.data.access_token){
-            const res = await axios.get("http://127.0.0.1:8000/api/user", { 
+            const res = await axios.get( `${baseUrl}/api/user`, { 
                 headers: { 
                     'Authorization': `Bearer ${token.data.access_token}`, 
                     'Access-Control-Allow-Origin': '*',
@@ -56,14 +59,16 @@ export const ingresoUsuarioAccion = (data) => async (dispatch) => {
                 payload: {
                     uid: res.data.id,
                     email: res.data.email,
-                    company: res.data.company_id,
                     name: res.data.name,
-                    access_token: token.data.access_token
+                    access_token: token.data.access_token,
+                    company: res.data.company
                 }
             })
             localStorage.setItem('usuario', JSON.stringify({
                 uid: res.data.id,
                 email: res.data.email,
+                name: res.data.name,
+                company: res.data.company,
                 access_token: token.data.access_token
             }))
         }
@@ -83,7 +88,7 @@ export const registroUsuarioAccion = (data) => async (dispatch) => {
         type: LOADING
     })
     try {
-       const res = await axios.post("http://127.0.0.1:8000/api/register_user", data);
+       const res = await axios.post(`${baseUrl}/api/register_user`, data);
         dispatch({
             type: USUARIO_REGISTRO_EXITO,
             payload: {
@@ -111,7 +116,7 @@ export const leerUsuarioActivoAccion = () => (dispatch) => {
 }
 
 export const cerrarSesionAccion = (token) => async (dispatch) => {
-    await axios.get("http://127.0.0.1:8000/api/logout", { 
+    await axios.get(`${baseUrl}/api/logout`, { 
         headers: { 
             'Authorization': `Bearer ${token}`, 
             'Access-Control-Allow-Origin': '*',

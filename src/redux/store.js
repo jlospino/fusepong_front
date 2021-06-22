@@ -3,10 +3,12 @@ import thunk from 'redux-thunk'
 
 import usuarioReducer, {leerUsuarioActivoAccion} from './usuarioDucks'
 import companyReducer from './companyDucks'
+import projectReducer from './projectDucks'
 
 const rootReducer = combineReducers({
     usuario: usuarioReducer,
-    company: companyReducer
+    company: companyReducer,
+    projects: projectReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

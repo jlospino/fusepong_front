@@ -11,6 +11,7 @@ import {useSelector} from 'react-redux'
 import Login from './components/Auth/Login';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import Tickets from './components/Tickets';
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
             <RutaPrivada component={Home} path="/" exact></RutaPrivada>
             <Route component={Login} path="/login" exact></Route>
             <RutaPrivada component={Home} path="/home" exact/>
+            <RutaPrivada component={Tickets} path="/history" exact/>
           </Switch>
         </div>
       </div>
