@@ -54,7 +54,7 @@ function App() {
             <RutaPrivada component={Home} path="/" exact></RutaPrivada>
             <Route component={Login} path="/login" exact></Route>
             <RutaPrivada component={Home} path="/home" exact/>
-            <RutaPrivada component={Tickets} path="/history" exact/>
+            <RutaPrivada component={Tickets} path="/history"/>
           </Switch>
         </div>
       </div>

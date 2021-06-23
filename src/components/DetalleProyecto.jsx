@@ -39,7 +39,7 @@ const DetalleProyecto = (props) => {
         const res = await dispatch(crearHistoriaProyecto(data))
 
         if(!res) {
-            setError('Error al guardar la tarea')
+            setError('Error al guardar la historia de usuario')
             return
         }
         proyecto.historys.push(res)
@@ -135,20 +135,23 @@ const DetalleProyecto = (props) => {
                                     <h4 className="text-primary">Historias de usuarios</h4>
                                     <ul className="list-group list-group-flush">
                                     {
-                                        proyecto.historys.map(item => (
-                                            <li 
-                                                className="list-group-item list-group-item-action" 
-                                                key={item.id} 
-                                            >
-                                                {item.name}
-                                                <NavLink className="btn btn-dark btn-sm float-right" to={{ 
-                                                    pathname: 'history',
-                                                    aboutProps:{
-                                                        id: item.id
-                                                    }
-                                                }} exact>Gestionar</NavLink>
-                                            </li>
-                                        ))
+                                        proyecto.historys.length > 0 ? (
+                                            proyecto.historys.map(item => (
+                                                <li 
+                                                    className="list-group-item list-group-item-action" 
+                                                    key={item.id} 
+                                                >
+                                                    {item.name}
+                                                    <NavLink className="btn btn-dark btn-sm float-right" to={{ 
+                                                        pathname: 'history',
+                                                        aboutProps:{
+                                                            id: item.id
+                                                        },
+                                                        state: { item, proyecto:proyecto }
+                                                    }} exact>Gestionar</NavLink>
+                                                </li>
+                                            ))
+                                        ): 'No se encontró información...'
                                         }
                                     </ul>
                                 </div>

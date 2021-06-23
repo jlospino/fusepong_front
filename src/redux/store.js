@@ -4,11 +4,13 @@ import thunk from 'redux-thunk'
 import usuarioReducer, {leerUsuarioActivoAccion} from './usuarioDucks'
 import companyReducer from './companyDucks'
 import projectReducer from './projectDucks'
+import ticketReducer from './ticketDucks'
 
 const rootReducer = combineReducers({
     usuario: usuarioReducer,
     company: companyReducer,
-    projects: projectReducer
+    projects: projectReducer,
+    tickets: ticketReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -28,23 +28,6 @@ const Home = () => {
           {
             projects ? (
               <div>
-                {/*<div className="jumbotron ">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-6">
-                        <p className="lead mb-0"><b>Bienvenido(a)</b> {user.name}</p>
-                        {user.email}
-                      </div>
-                      <div className="col-md-6">
-                      <p className="lead mb-0">
-                        <b>{user.company.name}</b>
-                      </p>
-                      <p className="mb-0">{user.company.email}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>*/}
-
                 <div className="row">
                   <div className="col-md-5">
                     <h3 className="font-weight-bold">Proyectos</h3>
