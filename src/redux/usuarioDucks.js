@@ -8,7 +8,7 @@ const dataInicial = {
     error: null
 }
 
-const baseUrl = 'http://127.0.0.1:8000';
+const baseUrl = 'https://joseospino.thecompanydev.xyz';
 
 // types
 
