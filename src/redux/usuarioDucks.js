@@ -33,7 +33,7 @@ export default function usuarioReducer (state = dataInicial, action) {
         case USUARIO_EXITO:
             return {...state, loading: false, user: action.payload, activo: true}
         case CERRAR_SESION:
-            return {...state}
+            return {...state, loading: false, activo: false}
         default:
             return {...state}
     }

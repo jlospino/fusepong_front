@@ -22,7 +22,6 @@ const Home = () => {
     fetchProjects()
   }, [user, dispatch])
 
-
     return (
         <div>
           {

@@ -53,16 +53,19 @@ export const obtenerProyectos = (data) => async (dispatch, getState) => {
         return
     }*/
     try {
-       const res = await axios.get(`${baseUrl}/api/projects/${data.company}`, {
-        headers: { 
-            'Authorization': `Bearer ${data.token}`, 
-            'Access-Control-Allow-Origin': '*',
-        },
-       });
-        dispatch({
-            type: OBTENER_PROYECTOS_EXITO,
-            payload: res.data
-        })
+        if(data.token.trim() !== ''){
+            const res = await axios.get(`${baseUrl}/api/projects/${data.company}`, {
+                headers: { 
+                    'Authorization': `Bearer ${data.token}`, 
+                    'Access-Control-Allow-Origin': '*',
+                },
+            });
+            dispatch({
+                type: OBTENER_PROYECTOS_EXITO,
+                payload: res.data
+            })
+        }
+       
         // localStorage.setItem('projects'+data.company, JSON.stringify(res.data))
     } catch (error) {
         dispatch({

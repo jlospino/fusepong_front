@@ -12,7 +12,6 @@ const Navbar = (props) => {
 
     
     const cerrarSesion = (token) => {
-        console.log(token)
         dispatch(cerrarSesionAccion(token))
         props.history.push('/login')
     }
