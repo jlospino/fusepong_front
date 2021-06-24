@@ -18,6 +18,7 @@ const Login = (props) => {
     const [name, setName] = React.useState('')
     const [company, setCompany] = React.useState('')
     const [error, setError] = React.useState(null)
+    const [success, setSuccess] = React.useState(null)
     const [esRegistro, setEsRegistro] = React.useState(false)
 
     React.useEffect(() => {
@@ -32,7 +33,7 @@ const Login = (props) => {
         
     }, [activo, props, dispatch])
 
-    const registro = (e) => {
+    const registro = async(e) => {
         e.preventDefault()
 
         const dataForm = {
@@ -64,7 +65,14 @@ const Login = (props) => {
             return
         }
         
-        dispatch(registroUsuarioAccion(dataForm))
+        const res = await dispatch(registroUsuarioAccion(dataForm))
+        if(!res)
+        {
+            setError('Error al iniciar sesión, es posible que el usuario ya se encuentre en uso')
+            return
+        }
+
+        setSuccess('Usuario registrado exitosamente')
 
         setEmail('')
         setPass('')
@@ -109,7 +117,7 @@ const Login = (props) => {
         <div className="mt-5">
             <h3 className="text-center">
                 {
-                    esRegistro ? 'Registro de usuarios' : 'Login de acceso'
+                    esRegistro ? 'Registro de usuarios' : 'Ingreso de usuarios'
                 }
             </h3>
             <hr/>
@@ -124,8 +132,17 @@ const Login = (props) => {
                             )
                         }
                         {
+                            success &&(
+                                <div className="alert alert-success">
+                                    {success}
+                                </div>  
+                            )
+                        }
+                        {
                             esRegistro ?
                             companys ? (
+                                <>
+                                <h5 className="my-4">Registre sus datos para ingresar</h5>
                                 <select className="form-control mb-2"
                                     onChange={e => setCompany(e.target.value)}
                                     value={company}
@@ -137,6 +154,7 @@ const Login = (props) => {
                                         ))
                                     }
                                 </select>
+                                </>
                                 
                             ): ''
                             : ''
@@ -155,14 +173,14 @@ const Login = (props) => {
                         <input 
                             type="email" 
                             className="form-control mb-2"
-                            placeholder="Ingrese un email"
+                            placeholder="Ingrese correo electrónico"
                             onChange={e => setEmail(e.target.value)}
                             value={email}
                         />
                         <input 
                             type="password" 
                             className="form-control mb-2"
-                            placeholder="Ingrese un password"
+                            placeholder="Ingrese una contraseña"
                             onChange={e => setPass(e.target.value)}
                             value={pass}
                         />
@@ -192,11 +210,11 @@ const Login = (props) => {
                         
                         <button 
                             className="btn btn-success btn-sm btn-block"
-                            onClick={() => setEsRegistro(!esRegistro)}
+                            onClick={() => [setEsRegistro(!esRegistro), setSuccess(''), setError('')]}
                             type="button"
                         >
                             {
-                                esRegistro ? '¿Ya estas registrado?' : '¿No tienes cuenta?'
+                                esRegistro ? '¿Ya estás registrado?' : '¿No tienes cuenta?'
                             }
                         </button>
                     </form>

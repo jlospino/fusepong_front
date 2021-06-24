@@ -33,6 +33,7 @@ const Home = () => {
                     <h3 className="font-weight-bold">Proyectos</h3>
                     <ul className="list-group mt-4 bg-white">
                     {
+                      
                       projects.map(item => (
                         <Link 
                           className="list-group-item list-group-item-action" 

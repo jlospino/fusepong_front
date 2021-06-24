@@ -11,6 +11,7 @@ import {
     editarTicketHistoria,
     cancelarTicketHistoria
 } from '../redux/ticketDucks'
+import { useHistory } from "react-router-dom";
 
 const times = <FontAwesomeIcon icon={faTimes} />
 const check = <FontAwesomeIcon icon={faCheck} />
@@ -20,6 +21,8 @@ const edit = <FontAwesomeIcon icon={faEdit} />
 const Tickets = (props) => {
 
     const dispatch = useDispatch()
+
+    const historyBrowser = useHistory();
     
     const user = useSelector(store => store.usuario.user)
     const loading = useSelector(store => store.tickets.loading)
@@ -41,7 +44,6 @@ const Tickets = (props) => {
                 history: history.id,
                 token: user.access_token
             }
-
             dispatch(obtenerTicketsHistoria(data))
         }
         fetchData()
@@ -68,6 +70,7 @@ const Tickets = (props) => {
         }
         tickets.push(res)
         setTicket('')
+        setFormTicket(false)
     }
 
     const editarTicket = async(e) => {
@@ -132,7 +135,7 @@ const Tickets = (props) => {
     const colorState = (item) => {
         if(item.state === 'activo')
         {
-            return 'text-info'
+            return 'text-warning'
         }
         if(item.state === 'cancelado')
         {
@@ -140,7 +143,7 @@ const Tickets = (props) => {
         }
         if(item.state === 'en proceso')
         {
-            return 'text-warning'
+            return 'text-info'
         }
         if(item.state === 'finalizado')
         {
@@ -274,13 +277,14 @@ const Tickets = (props) => {
                                         
                                     </div>
                                 ):(
+                                    loading === false ?
                                     tickets  && tickets.length > 0 ? (
                                         tickets.map(item => (
                                             <li 
                                                 className="list-group-item list-group-item-action" 
                                                 key={item.id} 
                                             >
-                                                <p className="text-primary mb-0">
+                                                <p className="text-light-gray mb-0">
                                                     <span 
                                                         className={colorState(item)}
                                                     >
@@ -322,11 +326,20 @@ const Tickets = (props) => {
                                             </div>
                                         </div>
                                     )
+                                    : 'Cardando...'
                                 )
                                 
                             }
                             </ul>
-                            <h6 className="my-4">({ tickets.length }) Tickets en total</h6>
+                            <h6 className="my-4">({ tickets.length }) Tickets en total 
+                                <button 
+                                    className="btn text-dark ml-3"
+                                    onClick={() => historyBrowser.goBack()}
+                                    type="button"
+                                >
+                                <u>Ir a la página anterior</u>
+                                </button>
+                            </h6>
                             </>
                         )
                     }

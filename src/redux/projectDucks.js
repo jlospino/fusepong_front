@@ -26,7 +26,7 @@ export default function projectReducer(state = dataInicial, action) {
         case OBTENER_PROYECTOS_EXITO:
             return {...state, error: null, results: action.payload, loading: false}
         case DETALLE_PROYECTO_EXITO:
-            return {...state, error: null, detalle: action.payload, loading: false}
+            return {...state, error: null, ...action.payload, loading: false}
         case DETALLE_PROYECTO_ERROR:
             return {...state, error: action.payload, loading: false}
         case OBTENER_PROYECTOS_ERROR:
@@ -45,13 +45,13 @@ export const obtenerProyectos = (data) => async (dispatch, getState) => {
     dispatch({
         type: LOADING,
     })
-    if(localStorage.getItem('projects'+data.company)){
+    /*if(localStorage.getItem('projects'+data.company)){
         dispatch({
             type: OBTENER_PROYECTOS_EXITO,
             payload: JSON.parse(localStorage.getItem('projects'+data.company))
         })
         return
-    }
+    }*/
     try {
        const res = await axios.get(`${baseUrl}/api/projects/${data.company}`, {
         headers: { 
@@ -63,7 +63,7 @@ export const obtenerProyectos = (data) => async (dispatch, getState) => {
             type: OBTENER_PROYECTOS_EXITO,
             payload: res.data
         })
-        localStorage.setItem('projects'+data.company, JSON.stringify(res.data))
+        // localStorage.setItem('projects'+data.company, JSON.stringify(res.data))
     } catch (error) {
         dispatch({
             type: OBTENER_PROYECTOS_ERROR,
@@ -84,21 +84,27 @@ export const obtenerDetalleProyecto = (id, token) => async (dispatch, getState) 
         return
     }*/
     try {
-       const res = await axios.get(`${baseUrl}/api/project/${id}`, {
-        headers: { 
-            'Authorization': `Bearer ${token}`, 
-            'Access-Control-Allow-Origin': '*',
-        },
-       });
+        const res = await axios.get(`${baseUrl}/api/project/${id}`, {
+            headers: { 
+                'Authorization': `Bearer ${token}`, 
+                'Access-Control-Allow-Origin': '*',
+            }
+        });
         dispatch({
             type: DETALLE_PROYECTO_EXITO,
-            payload: res.data
+            payload: {
+                detalle: res.data
+            }
         })
+
+        return res.data
         // localStorage.setItem('project'+id, JSON.stringify(res.data))
     } catch (error) {
         dispatch({
             type: DETALLE_PROYECTO_ERROR,
-            error: error
+            payload:{
+                error: error
+            }
         })
     }
 }

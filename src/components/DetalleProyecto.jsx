@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Moment from 'react-moment';
 import 'moment-timezone';
 import {NavLink} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {crearHistoriaProyecto} from '../redux/projectDucks'
+import {crearHistoriaProyecto, obtenerDetalleProyecto} from '../redux/projectDucks'
 
 const DetalleProyecto = (props) => {
 
@@ -44,6 +44,7 @@ const DetalleProyecto = (props) => {
         }
         proyecto.historys.push(res)
         setHistory('')
+        setTicket('')
         setFormHistory(false)
     }
 
@@ -71,7 +72,7 @@ const DetalleProyecto = (props) => {
                             </div>
                             
                             <button 
-                                className="btn btn-outline-dark"
+                                className="btn btn-dark"
                                 onClick={() => setFormHistory(true)}
                             >
                                 Nueva Historia
@@ -141,8 +142,8 @@ const DetalleProyecto = (props) => {
                                                     className="list-group-item list-group-item-action" 
                                                     key={item.id} 
                                                 >
-                                                    {item.name}
-                                                    <NavLink className="btn btn-dark btn-sm float-right" to={{ 
+                                                    {item.name}<br/><small className="text-light-gray">{item.tickets ? '('+item.tickets.length+') Tickets relacionados' : ''} </small>
+                                                    <NavLink className="btn btn-outline-dark btn-sm float-right" to={{ 
                                                         pathname: 'history',
                                                         aboutProps:{
                                                             id: item.id

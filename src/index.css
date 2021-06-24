@@ -23,3 +23,7 @@ code {
 .text-primary{
   color: #1f69e1 !important;
 }
+
+.text-light-gray{
+  color: rgb(165, 165, 165);
+}

@@ -37,7 +37,7 @@ const Navbar = (props) => {
                                 </button>
                             </>
                         ): (
-                            <NavLink className="btn btn-dark mr-2" to="/login" exact>Login</NavLink>
+                            <NavLink className="btn btn-dark mr-2" to="/login" exact>Ingresar</NavLink>
                         )
                     }
                     </div>

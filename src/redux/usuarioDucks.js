@@ -27,13 +27,13 @@ export default function usuarioReducer (state = dataInicial, action) {
         case USUARIO_REGISTRO_EXITO:
             return {...state, loading: false, user: action.payload, activo: false}
         case USUARIO_REGISTRO_ERROR:
-            return {...dataInicial, error: action.payload.error}
+            return {...dataInicial, error: action.payload.error, loading: false}
         case USUARIO_ERROR:
             return {...state, loading: false, error: action.payload.error }
         case USUARIO_EXITO:
             return {...state, loading: false, user: action.payload, activo: true}
         case CERRAR_SESION:
-            return {...dataInicial}
+            return {...state}
         default:
             return {...state}
     }
@@ -98,10 +98,14 @@ export const registroUsuarioAccion = (data) => async (dispatch) => {
                 company_id: res.company_id
             }
         })
+
+        return res.data;
     } catch (error) {
         dispatch({
             type: USUARIO_REGISTRO_ERROR,
-            error: error
+            payload: {
+                error: error
+            }
         })
     }
 }
